@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101116" />
+  <title>ClipForge Studio</title>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><div class="brandmark">CF</div><div><strong>ClipForge</strong><small>STUDIO</small></div></div>
+      <div class="top-actions">
+        <button id="themeBtn" class="ghost">☾ Dark</button>
+        <button id="exportBtn" class="primary">Export video ↗</button>
+      </div>
+    </header>
+    <main class="layout">
+      <aside class="sidebar">
+        <p class="eyebrow">PROJECT</p>
+        <button class="nav active">▣　Media</button>
+        <button class="nav" data-panel="text">T　Text overlay</button>
+        <button class="nav" data-panel="chroma">◉　Chroma key</button>
+        <button class="nav" data-panel="keyframes">◆　Keyframes</button>
+        <div class="side-note"><span class="status-dot"></span> Processing locally<br><small>Your media stays on your device.</small></div>
+      </aside>
+      <section class="workspace">
+        <div class="section-head"><div><p class="eyebrow">EDITING WORKSPACE</p><h1>Untitled project</h1></div><label class="import-btn">＋ Import media<input id="videoInput" type="file" accept="video/*" hidden></label></div>
+        <div class="editor-grid">
+          <section class="preview-card">
+            <div class="card-top"><span>PREVIEW</span><span id="previewMeta">No media loaded</span></div>
+            <div class="preview-stage" id="stage">
+              <div id="emptyState"><div class="play-icon">▶</div><h3>Your story starts here</h3><p>Import a video to begin editing.</p></div>
+              <video id="video" controls playsinline></video>
+              <div id="textOverlay"></div>
+            </div>
+            <div class="preview-footer"><span id="timeLabel">00:00.00 / 00:00.00</span><span>FIT ▾</span></div>
+          </section>
+          <section class="inspector">
+            <div class="card-top"><span>PROPERTIES</span><span class="pill">LOCAL</span></div>
+            <div class="control-block">
+              <label>Project media</label><p id="fileName" class="muted">No video selected</p>
+              <label for="startTime">Trim start (seconds)</label><input id="startTime" type="number" min="0" step="0.1" value="0">
+              <label for="endTime">Trim end (seconds)</label><input id="endTime" type="number" min="0" step="0.1" value="10">
+              <p class="hint">Export uses the selected start/end range.</p>
+            </div>
+            <div class="control-block">
+              <label for="overlayText">Text overlay</label><input id="overlayText" type="text" placeholder="Type a title…">
+              <label for="textSize">Text size</label><input id="textSize" type="range" min="18" max="72" value="36">
+              <label for="textColor">Text color</label><input id="textColor" type="color" value="#ffffff">
+              <label class="check-row"><input id="textEnabled" type="checkbox" checked> Show text in preview</label>
+            </div>
+            <div class="control-block">
+              <label>Background music</label><label class="file-btn">＋ Choose audio<input id="audioInput" type="file" accept="audio/*" hidden></label><p id="audioName" class="muted">No audio selected</p>
+              <label class="check-row"><input id="mixAudio" type="checkbox"> Mix music into export</label>
+            </div>
+            <div class="control-block">
+              <label>Chroma key (green screen)</label><label for="keyColor">Key color</label><input id="keyColor" type="color" value="#00ff00">
+              <label for="similarity">Similarity</label><input id="similarity" type="range" min="1" max="100" value="30">
+              <p class="hint">Experimental export filter. Results depend on lighting and video quality.</p>
+            </div>
+            <div class="control-block">
+              <label>Keyframe controls</label><p class="hint">Starter UI only. Animated keyframe interpolation is not implemented yet.</p>
+              <button id="addKeyframe" class="secondary" disabled>◆ Add keyframe (coming soon)</button>
+            </div>
+          </section>
+        </div>
+        <section class="timeline-card">
+          <div class="timeline-head"><div><p class="eyebrow">TIMELINE</p><strong>Sequence 01</strong></div><span class="muted">Video · Audio · Text</span></div>
+          <div class="ruler"><span>00:00</span><span>00:05</span><span>00:10</span><span>00:15</span><span>00:20</span></div>
+          <div class="track"><span class="track-label">V1</span><div class="clip video-clip" id="videoClip">▰　Video clip</div></div>
+          <div class="track"><span class="track-label">A1</span><div class="clip audio-clip" id="audioClip">♫　Music track</div></div>
+          <div class="track"><span class="track-label">T1</span><div class="clip text-clip">T　Text overlay</div></div>
+          <div class="timeline-foot"><span id="timelineStatus">Import a video to populate the timeline.</span><button id="playheadBtn" class="ghost">Jump to start ↤</button></div>
+        </section>
+      </section>
+    </main>
+    <div id="toast" role="status"></div>
+    <div id="busy" class="busy hidden"><div class="spinner"></div><strong id="busyTitle">Preparing export…</strong><p id="busyText">Keep this tab open.</p></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
